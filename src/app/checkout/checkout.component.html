@@ -1,0 +1,282 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#"><i class="fa fa-sign-out"  style="font-size:36px;" aria-hidden="true"></i></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#" [routerLink]="['/items']">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" [routerLink]="['/group-info']">About us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" [routerLink]="['/group-info']">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" [routerLink]="['/shopping-cart']"><i class="fa fa-shopping-basket" style="font-size:36px; padding-left:2cm;" aria-hidden="true"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="row" style="padding-top:2.5cm">
+  <div class="col-md-4 offset-md-4 ">
+    <h4>
+      Order Total
+      <span class="text--red text--bold js-gross-total">{{(cart | async).grossTotal | currency:'USD':true}}</span>
+    </h4>
+  </div>
+  <div class="col-md-4 offset-md-4 ">
+    <h5 class="text--red"
+       *ngIf="(cart | async).deliveryOptionId === undefined">Please select a delivery option...</h5>
+  </div>
+  <hr/>
+  <div class="offset-md-4 col-md-4">
+    <a class="btn btn-outline-danger"
+       routerLink="/items">Continue Shopping</a>
+  </div>
+</div>
+
+  <div class="row">
+
+  </div>
+
+
+
+
+<div class="row">
+
+  <div class="col-md-12 col-xs-12">
+
+    <div class="accordion" id="accordion2">
+      <div class="card">
+        <div class="card-header"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2"
+                                     href="#collapseOne">
+
+          <h6 class="mb-0"><strong>Step 1: Checkout Items</strong></h6>
+
+        </a>
+        </div>
+        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+              <table class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Product Name</th>
+                  <th>Quantity</th>
+                  <th>Unit Price</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr  *ngFor="let item of cartItems">
+                  <td class="muted center_text"><img src="assets/img/{{item.product.img}}.jpg" style="width:100px; height:100px"/></td>
+                  <td><h6><strong>{{item.product.name}}</strong></h6></td>
+                  <td><button class="btn">{{item.quantity}}</button></td>
+                  <td><h5><strong>{{item.product.price | currency:'USD':true}}</strong></h5></td>
+                </tr>
+                </tbody>
+              </table>
+              </div>
+              <div class="col-md-4 offset-md-4 ">
+                <h4>
+                  Order Total
+                  <span class="text--red text--bold js-gross-total">{{(cart | async).grossTotal | currency:'USD':true}}</span>
+                </h4>
+              </div>
+              <a class="btn btn-primary float-right" data-toggle="collapse" data-parent="#accordion2" href="#collapse2">Continue</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2"
+                                      href="#collapse2">
+          <h6 class="mb-0"><strong>Step 2: Choose Delivery Options</strong></h6>
+        </a>
+        </div>
+        <div id="collapse2" class="accordion-body collapse">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row delivery-option"
+                     *ngFor="let option of deliveryOptions | async">
+                  <div class="offset-1 small-1 columns">
+                    <input type="radio"
+                           name="delivery_option"
+                           id="{{option.name}}"
+                           [checked]="option.id === (cart | async).deliveryOptionId"
+                           (click)="setDeliveryOption(option)">
+                  </div>
+                  <div class="small-9 columns">
+                    <label class="text--bold js-option-name" for="{{option.name}}" (click)="setDeliveryOption(option)">{{option.name}}</label>
+                  </div>
+                  <div class="small-2 columns">
+                    <p class="text--bold text--red js-option-price">{{option.price | currency:'USD':true}}</p>
+                  </div>
+                  <div class="small-12 columns">
+                    <p>{{option.description}}</p>
+                  </div>
+                </div>
+
+              <div class="col-md-11 no_margin_left">
+                <br /><input type = "submit" class="btn btn-primary float-right" data-toggle="collapse" data-parent="#accordion2" href="#collapse3" value="Continue">
+                <br />
+                <br />
+                <br />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2"
+                                      href="#collapse3">
+
+          <h6 class="mb-0"><strong>Step 3: Delivery Details</strong></h6>
+
+        </a>
+        </div>
+        <div id="collapse3" class="accordion-body collapse">
+          <div class="card-block">
+            <div class="row">
+              <div class="col-md-5">
+                <h3>Your Personal Details</h3>
+                <div class="control-group">
+                  <label class="form-control-label">First Name</label>
+                  <div class="controls docs-input-sizes">
+                    <input type="text" placeholder="First Name" class="form-control" />
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="form-control-label">Last Name</label>
+                  <div class="controls docs-input-sizes">
+                    <input type="text" placeholder="Last Name" class="form-control" />
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="form-control-label">Email Address</label>
+                  <div class="controls docs-input-sizes">
+                    <input type="text" placeholder="Email Address" class="form-control" />
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="form-control-label">Telephone</label>
+                  <div class="controls docs-input-sizes">
+                    <input type="text" placeholder="Telephone" class="form-control" required pattern="[0-9]{3}[ |-][0-9]{3}[ |-][0-9]{4}"/>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-5 offset-sm-1">
+                <h3>Your Address</h3>
+                <div class="control-group">
+                  <label class="form-control-label">Address 1</label>
+                  <div class="controls docs-input-sizes">
+                    <input type="text" placeholder="Address 1" class="form-control" />
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="form-control-label">Address 2</label>
+                  <div class="controls docs-input-sizes">
+                    <input type="text" placeholder="Address 2" class="form-control" />
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="form-control-label">City</label>
+                  <div class="controls docs-input-sizes">
+                    <input type="text" placeholder="City" class="form-control" />
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="form-control-label">ZIP</label>
+                  <div class="controls docs-input-sizes">
+                    <input type="text" placeholder="ZIP" class="form-control" />
+                  </div>
+                </div>
+                <div class="control-group">
+                  <label class="form-control-label">Country</label>
+                  <div class="controls docs-input-sizes">
+                    <select class="form-control">
+                      <option>United Kingdom</option>
+                      <option>United States</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-11 no_margin_left">
+                <br /><input type = "submit" class="btn btn-primary float-right" data-toggle="collapse" data-parent="#accordion2" href="#collapse4" value="Continue">
+                <br
+                />
+                <br />
+                <br />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">	<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2"
+                                      href="#collapse4">
+
+          <h6 class="mb-0"><strong>Step 4: Payment Method</strong></h6>
+
+        </a>
+        </div>
+        <div id="collapse4" class="accordion-body collapse">
+          <div class="card-block">
+            <div class="custom-controls-stacked">
+              <label class="custom-control custom-radio">
+                <input id="radioStacked1" name="radio-stacked" type="radio" class="custom-control-input">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description">Collect in store</span>
+              </label>
+              <label class="custom-control custom-radio">
+                <input id="radioStacked2" name="radio-stacked" type="radio" class="custom-control-input">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description">Paypal</span>
+              </label>
+              <label class="custom-control custom-radio">
+                <input id="radioStacked3" name="radio-stacked" type="radio" class="custom-control-input">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description">Google checkout</span>
+              </label>
+              <label class="custom-control custom-radio">
+                <input id="radioStacked4" name="radio-stacked" type="radio" class="custom-control-input">
+                <span class="custom-control-indicator"></span>
+                <span class="custom-control-description"><img class="img-responsive pull-right" src="http://i76.imgup.net/accepted_c22e0.png"></span>
+              </label>
+            </div>
+            <br />
+            <div class="control-group">
+              <label for="textarea" class="form-control-label">Comments</label>
+              <div class="controls">
+                <textarea rows="3" id="textarea" class="form-control"></textarea>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <br /><button class="btn btn-success" type="button"
+                       *ngIf="(cart | async).deliveryOptionId !== undefined"
+                       routerLink="/confirmed" href="#collapse3">Confirm order</button>
+              <br />
+              <br />
+              <br />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+

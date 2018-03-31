@@ -1,0 +1,140 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#"><i class="fa fa-sign-out"  style="font-size:36px;" aria-hidden="true"></i></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#" [routerLink]="['/items']">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" [routerLink]="['/group-info']">About us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" [routerLink]="['/group-info']">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" [routerLink]="['/shopping-cart']"><i class="fa fa-shopping-basket" style="font-size:36px; padding-left:2cm;" aria-hidden="true"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+          <div class="container" style="padding-top:2.5cm">
+          <div class="row">
+              <div class="col-lg-6">
+                <h5><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart</h5>
+              </div>
+              <div class="offset-3 col-lg-3">
+                <button type="button" class="btn btn-primary btn-sm btn-block" [routerLink]="['/items']">
+                   Continue shopping <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                </button>
+              </div>
+            <table class="table table-bordered table-striped">
+              <thead>
+              <tr>
+                <th>Image</th>
+                <th>Product Name</th>
+                <th>Size</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Remove</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr  *ngFor="let item of cartItems">
+                <td class="muted center_text"><img src="assets/img/{{item.product.img}}.jpg" style="width:100px; height:100px"/></td>
+                <td><h6><strong>{{item.product.name}}</strong></h6></td>
+                <td>Average</td>
+                <td><button class="btn">{{item.quantity}}</button></td>
+                <td><h5><strong>{{item.product.price | currency:'USD':true}}</strong></h5></td>
+                <td><button type="button" class="btn btn-link btn-xs">
+                  <i class="fa fa-trash" aria-hidden="true" style="font-size:36px;"
+                     (click)="removeProductFromCart(item.product)"
+                     [attr.disabled]="itemCount === 0 ? true : null"></i>
+                </button></td>
+              </tr>
+              </tbody>
+            </table>
+
+              <div class="col-lg-9">
+                <h6 class="text-right">Delete all items?</h6>
+              </div>
+              <div class="col-lg-3">
+                <button type="button"
+                        class="btn btn-danger btn-sm btn-block text-white"
+                        (click)="emptyCart()"
+                        [attr.disabled]="itemCount === 0 ? true : null">
+                  Empty cart
+                </button>
+              </div>
+
+            <div class="col-lg-9">
+              <h4>
+               Total ({{itemCount}} items):
+                <span class="text--red text--bold js-cart-total">{{(cart | async).grossTotal | currency:'USD':true}}</span>
+              </h4>
+            </div>
+            <div class="col-lg-3">
+              <button type="button" class="btn btn-success btn-block"
+                      [attr.disabled]="itemCount === 0 ? true : null"
+                      routerLink="/checkout">
+                Checkout
+              </button>
+            </div>
+          </div>
+          </div>
+          <br><br>
+          <div class="col-lg-12">
+            <h5 class="text-left" style="color:deeppink">Have a Coupon?</h5>
+          </div>
+          <div id="accordion" role="tablist" aria-multiselectable="true">
+            <div class="card">
+              <div class="card-header">
+                <strong class="card-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                    <i class="fa fa-caret-right" aria-hidden="true"></i> Apply discount code
+                  </a>
+                </strong>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="card-block">
+                  <div class="control-group">
+                    <label for="input01" class="control-label">Discount code: </label>
+                    <div class="controls">
+                      <input type="text" id="input01" class="form-control" placeholder="Enter your coupon here">
+                      <p class="help-block">You can only use one discount code at a time</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header">
+                <strong class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                    <i class="fa fa-caret-right" aria-hidden="true"></i> Use gift voucher
+                  </a>
+                </strong>
+              </div>
+              <div id="collapseTwo" class="panel-collapse collapse">
+                <div class="card-block">
+                  <div class="control-group">
+                    <label for="input01" class="control-label">Gift voucher: </label>
+                    <div class="controls">
+                      <input type="text" id="input02" class="form-control" placeholder="Enter your gift voucher here">
+                      <p class="help-block">You can use multiple gift vouchers at a time</p>
+                    </div>
+                  </div>      </div>
+              </div>
+            </div>
+          </div>
+
+
+
+

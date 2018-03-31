@@ -1,0 +1,96 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#"><i class="fa fa-sign-out"  style="font-size:36px;" aria-hidden="true"></i></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#" [routerLink]="['/items']">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" [routerLink]="['/group-info']">About us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" [routerLink]="['/group-info']">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" [routerLink]="['/shopping-cart']"><i class="fa fa-shopping-basket" style="font-size:36px; padding-left:2cm;" aria-hidden="true"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="col-lg-12 col-xs-12" style="padding-top:2.5cm">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">Home</li>
+    <li class="breadcrumb-item">Genre</li>
+    <li class="breadcrumb-item active">Product</li>
+  </ol>
+  <div *ngIf="shoppingItem">
+
+    <div class="row mt-3">
+      <div class="col-sm-6">
+        <img class=" img-fluid" src="assets/img/{{shoppingItem.img}}.jpg" alt="{{shoppingItem.name}}">
+      </div>
+
+      <div class="col-sm-6">
+        <br class="visible-sm-down"/>
+        <h2>{{shoppingItem.name}}</h2>
+        <br />
+        <h3 class="mb-1"><strong>Description: </strong></h3><p>{{shoppingItem.description}}</p>
+        <h3 class="mb-1"><strong>Rating:</strong><span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span></h3>
+      </div>
+
+      <div class="col-md-6 mt-sm-5">
+        <h5>
+          <strong>Price: <span class="text-danger">{{shoppingItem.price| currency:'USD':true}}</span></strong> <br /><br />
+        </h5>
+      </div>
+      <div class="col-6 mt-sm-5">
+            <div class="row">
+              <div class="col-3 col-md-6">
+                <select class="custom-select form-control" [(ngModel)]="selectedValue" (change)="changeShape($event.target.value)">
+                  <option selected>1</option>
+                  <option [value]="2">2</option>
+                  <option [value]="3">3</option>
+                  <option [value]="4">4</option>
+                  <option [value]="5">5</option>
+                </select>
+              </div>
+              <div class="col-3">
+                <button class="btn btn-primary" type="submit"
+                        (click)="addProductToCart(shoppingItem)">Add to cart</button>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<button class="btn btn-info" (click)="goBack()">Go Back</button>
+
+<div class="card card-outline-secondary my-4">
+  <div class="card-header">
+    Product Reviews
+  </div>
+  <div class="card-body">
+    <p>These are great little things. They perform well and I've used them for both rain and sun. Actually, I sat at a soccer game with two of them propped up behind my head holding off a fierce and beastly storm and they held tough. Although the rain was coming in sideways and the wind was blowing something treacherous, they were like a little protective shield for me. The picture is what the storm looked like from my view, you can see the other guys umbrella buckling from facing the terror this Mid-Western deluge. I would recommend after a few months of use.</p>
+    <small class="text-muted">Posted by Zhe on 12/1/17</small>
+    <hr>
+    <p>Best product I've ever had. I bought it after looking online for one that wouldn't fall apart at the first gust of wind in a rainstorm. After using several times in a huge rainstorm with heavy winds, it seems to be indestructible. The strong wind will flip the umbrella inside out, but it quickly flips back and show no sign of being worse for wear. I plan to buy several more so I can be sure to have one at my home, office and car.</p>
+    <small class="text-muted">Posted by Rong on 11/12/17</small>
+    <hr>
+    <p>Dear Customer, the larger size is 60*80, you can check your dorm bed first.Normally, it can fit for a twin size bed. Any question, please contact us at service@bedshe.com </p>
+    <small class="text-muted">Posted by Fancy on 12/4/17</small>
+    <hr>
+    <a href="#" [routerLink]="['/detail']" class="btn btn-success">Leave a Review</a>
+  </div>
+</div>
+
+
+
+
+

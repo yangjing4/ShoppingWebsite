@@ -1,0 +1,107 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#"><i class="fa fa-sign-out"  style="font-size:36px;" aria-hidden="true"></i></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#" [routerLink]="['/items']">Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" [routerLink]="['/group-info']">About us</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" [routerLink]="['/group-info']">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" [routerLink]="['/shopping-cart']"><i class="fa fa-shopping-basket" style="font-size:36px; padding-left:2cm;" aria-hidden="true"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container" style="padding-top:2.5cm">
+  <div class="row">
+    <div class="col-md-10">
+      <app-item-search></app-item-search>
+    </div>
+    <div class="col-md-2">
+
+      <button class="btn btn-primary btn-lg btn-block"><i class="fa fa-search"></i> Search</button>
+
+    </div>
+  </div>
+</div>
+<div class="row">
+    <div class="col-lg-3">
+        <h1 class="my-4">Departments</h1>
+        <div class="list-group">
+          <button  class="list-group-item" style="color:rgb(78, 197, 233)" (click)="groupbyFood()">Food</button>
+          <button  class="list-group-item" style="color:rgb(78, 197, 233)" (click)="groupbyWatch()">Watch</button>
+          <button  class="list-group-item" style="color:rgb(78, 197, 233)" (click)="groupbyToy()">Toy</button>
+          <button  class="list-group-item" style="color:rgb(78, 197, 233)" (click)="groupbyBackpack()">Backpack</button>
+          <button  class="list-group-item" style="color:rgb(78, 197, 233)"  (click)="groupbyClothes()">Clothes</button>
+          <button  class="list-group-item" style="color:rgb(78, 197, 233)" (click)="groupbyHat()">Hat</button>
+          <button  class="list-group-item" style="color:rgb(78, 197, 233)" (click)="groupbyMouse()">Mouse</button>
+        </div>
+    </div>
+
+<div class="col-lg-9">
+  <app-carousel></app-carousel>
+</div>
+  <div class="col-md-2">
+    <div class="dropdown">
+      <button class="btn btn-success btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Sort By
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item"  (click)="sortItemsbyname()">Name</a>
+        <a class="dropdown-item"  (click)="sortItemsbyrating()">Rating</a>
+        <a class="dropdown-item"  (click)="sortItemsbyprice2()">Price:Low To High</a>
+        <a class="dropdown-item"  (click)="sortItemsbyprice1()">Price:Hight To Low</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="offset-8 col-md-2">
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab"  role="tab" [routerLink]="['/items-list']"><i class="fa fa-list-ul" aria-hidden="true"></i></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " data-toggle="tab"  role="tab" [routerLink]="['/items']" ><i class="fa fa-th" aria-hidden="true"></i></a>
+    </ul>
+  </div>
+</div>
+<br>
+
+
+
+<div class="tab-content border-0" style="overflow:visible">
+  <div class="tab-pane active" id="list" role="tabpanel">
+
+    <div class="row"  *ngFor="let ShoppingItem of ShoppingItems">
+      <div class="col-2">
+        <a href="#"><img class="img-fluid" style="height:100px; width:100px" src="assets/img/{{ShoppingItem.img}}.jpg" alt=""></a>
+      </div>
+
+      <div class="col-5">
+        <a href="#"><h5>{{ShoppingItem.name}}</h5></a>
+        <p><span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span></p>
+      </div>
+
+      <div class="col-2">
+        <p>${{ShoppingItem.price}}</p>
+      </div>
+
+      <div class="col-3 text-center">
+        <p><button class="btn btn-primary"(click)="addProductToCart(ShoppingItem, 1)" >Add to cart</button></p>
+      </div>
+    </div>
+    <hr />
+  </div>
+</div>
